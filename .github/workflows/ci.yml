@@ -1,15 +1,9 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,11 +11,21 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.8'
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m venv venv
+        source venv/bin/activate
         pip install -r requirements.txt
     - name: Run tests
       run: |
-        pytest
+        source venv/bin/activate
+        pytest --cov=.
+    - name: Lint with Flake8
+      run: |
+        source venv/bin/activate
+        flake8 .
+    - name: Type Check with MyPy
+      run: |
+        source venv/bin/activate
+        mypy .
