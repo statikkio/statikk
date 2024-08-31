@@ -1,23 +1,28 @@
 # interfaces/api/controllers/user_controller.py
 from __future__ import annotations
 
+from typing import Annotated
+
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
 from pydantic import BaseModel
 from statikk.core.application.services.user_service import UserService
+from statikk.core.domain.repositories.user_repository import UserRepository
 
 
 # Dependency Injection of UserService
-def get_user_service(user_service: UserService = Depends()) -> UserService:
+# Dependency Injection function for UserService
+def get_user_service(repository: Annotated[UserRepository, Depends()]) -> UserService:
     """
     Provides an instance of UserService for dependency injection.
 
     :return: An instance of UserService.
     :rtype: UserService
     """
-    return user_service
+    return UserService(repository)
+
 
 # Pydantic models for request and response bodies
 
