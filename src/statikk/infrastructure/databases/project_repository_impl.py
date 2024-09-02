@@ -1,4 +1,5 @@
 from statikk.core.domain.entities.project import Project
+from statikk.core.domain.repositories.project_repository import ProjectRepository
 from statikk.infrastructure.databases.subrreal_db_client import SubrrealDBClient
 
 class SubrrrealDBProjectRepository(ProjectRepository):
