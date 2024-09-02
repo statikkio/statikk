@@ -5,7 +5,7 @@ from statikk.core.domain.entities.user import User
 from statikk.core.domain.repositories.user_repository import UserRepository
 
 
-class SubrrrealDBUserRepository(UserRepository):
+class SubrrealDBUserRepository(UserRepository):
     """
     Implementation of UserRepository that uses SubrrrealDB for data storage.
 
