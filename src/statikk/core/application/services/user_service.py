@@ -1,4 +1,3 @@
-# core/application/services/user_service.py
 from __future__ import annotations
 
 from statikk.core.domain.entities.user import User
