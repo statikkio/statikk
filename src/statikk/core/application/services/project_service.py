@@ -1,3 +1,4 @@
+from typing import List
 from statikk.core.domain.entities.project import Project
 from statikk.core.domain.repositories.project_repository import ProjectRepository
 from statikk.core.domain.value_objects.project_id import ProjectID
@@ -24,3 +25,12 @@ class ProjectService:
         project = Project(project_id=ProjectID(), name=name, description=description)
         self.project_repository.save(project)
         return project
+
+    def list_all_projects(self) -> List[Project]:
+        """
+        Retrieve all projects.
+
+        :return: A list of all projects.
+        :rtype: List[Project]
+        """
+        return self.project_repository.list_all()

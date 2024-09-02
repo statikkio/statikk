@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 from statikk.core.domain.entities.project import Project
 from statikk.core.domain.value_objects.project_id import ProjectID
 
@@ -47,5 +48,15 @@ class ProjectRepository(ABC):
 
         :param project_id: The unique ID of the project to delete.
         :type project_id: ProjectID
+        """
+        pass
+
+    @abstractmethod
+    def list_all(self) -> List[Project]:
+        """
+        Retrieve a list of all projects.
+
+        :return: A list of all projects.
+        :rtype: List[Project]
         """
         pass
