@@ -17,18 +17,35 @@ class SubrrrealDBProjectRepository(ProjectRepository):
     def __init__(self, db_client: SubrrealDBClient):
         self.db_client = db_client
 
-    def get_by_id(self, project_id: str) -> Project:
+    def get_by_id(self, project_id: ProjectID) -> Project:
         """
         Retrieve a project by its unique identifier.
 
         :param project_id: The unique ID of the project.
-        :type project_id: str
+        :type project_id: ProjectID
         :return: The project associated with the given ID.
         :rtype: Project
+        :raises KeyError: If the project does not exist.
+        :raises Exception: If a database error occurs.
         """
-        # Implement retrieval logic from SubrrrealDB
-        data = self.db_client.query(f"SELECT * FROM projects WHERE id = {project_id}")
-        return Project(project_id=data['id'], name=data['name'], description=data['description'])
+        try:
+            query = f"SELECT * FROM projects WHERE id = '{project_id}'"
+            result = self.db_client.query(query)
+            if not result:
+                raise KeyError(f"Project with ID {project_id} not found.")
+            return Project(
+                project_id=ProjectID(result['id']),
+                name=result['name'],
+                description=result['description']
+            )
+        except KeyError as e:
+            # Specific handling if the project is not found
+            print(f"Error: {str(e)}")
+            raise e
+        except Exception as e:
+            # General error handling for database errors
+            print(f"Failed to retrieve project: {str(e)}")
+            raise Exception(f"Database error: Could not retrieve project with ID {project_id}.") from e
 
     def save(self, project: Project) -> None:
         """
@@ -36,16 +53,80 @@ class SubrrrealDBProjectRepository(ProjectRepository):
 
         :param project: The project entity to save.
         :type project: Project
+        :raises Exception: If a database error occurs.
         """
-        # Implement save logic to SubrrrealDB
-        self.db_client.insert("projects", {"id": project.project_id.id, "name": project.name, "description": project.description})
+        try:
+            self.db_client.insert(
+                collection="projects",
+                data={
+                    "id": str(project.project_id),
+                    "name": project.name,
+                    "description": project.description
+                }
+            )
+            print(f"Project {project.name} saved successfully.")
+        except Exception as e:
+            print(f"Failed to save project: {str(e)}")
+            raise Exception(f"Database error: Could not save project {project.name}.") from e
 
-    def list_all(self) -> List[Project]:
+    def update(self, project: Project) -> None:
         """
-        Retrieve a list of all projects from the database.
+        Update an existing project entity in the database.
 
-        :return: A list of all projects.
-        :rtype: List[Project]
+        :param project: The project entity to update.
+        :type project: Project
+        :raises KeyError: If the project does not exist.
+        :raises Exception: If a database error occurs.
         """
-        results = self.db_client.query("SELECT * FROM projects")
-        return [Project(ProjectID(r['id']), r['name'], r['description']) for r in results]
+        try:
+            # Check if the project exists before updating
+            existing_project = self.get_by_id(project.project_id)
+            if not existing_project:
+                raise KeyError(f"Project with ID {project.project_id} not found for update.")
+
+            self.db_client.update(
+                collection="projects",
+                identifier=str(project.project_id),
+                data={
+                    "name": project.name,
+                    "description": project.description
+                }
+            )
+            print(f"Project {project.name} updated successfully.")
+        except KeyError as e:
+            # Specific handling if the project to update is not found
+            print(f"Error: {str(e)}")
+            raise e
+        except Exception as e:
+            # General error handling for database errors
+            print(f"Failed to update project: {str(e)}")
+            raise Exception(f"Database error: Could not update project with ID {project.project_id}.") from e
+
+    def delete(self, project_id: ProjectID) -> None:
+        """
+        Delete a project by its unique identifier.
+
+        :param project_id: The unique ID of the project to delete.
+        :type project_id: ProjectID
+        :raises KeyError: If the project does not exist.
+        :raises Exception: If a database error occurs.
+        """
+        try:
+            # Check if the project exists before deleting
+            existing_project = self.get_by_id(project_id)
+            if not existing_project:
+                raise KeyError(f"Project with ID {project_id} not found for deletion.")
+
+            self.db_client.delete(
+                collection="projects",
+                identifier=str(project_id)
+            )
+            print(f"Project with ID {project_id} deleted successfully.")
+        except KeyError as e:
+            # Specific handling if the project to delete is not found
+            print(f"Error: {str(e)}")
+            raise e
+        except Exception as e:
+            # General error handling for database errors
+            print(f"Failed to delete project: {str(e)}")
+            raise Exception(f"Database error: Could not delete project with ID {project_id}.") from e
