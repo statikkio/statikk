@@ -1,4 +1,3 @@
-# interfaces/api/controllers/user_controller.py
 from __future__ import annotations
 
 from typing import Annotated
