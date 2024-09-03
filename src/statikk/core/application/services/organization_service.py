@@ -1,4 +1,3 @@
-# core/application/services/organization_service.py
 from statikk.core.domain.entities.organization import Organization
 from statikk.core.domain.repositories.organization_repository import OrganizationRepository
 from statikk.core.domain.value_objects.organization_id import OrganizationID
