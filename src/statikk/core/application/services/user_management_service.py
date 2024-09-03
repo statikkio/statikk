@@ -1,4 +1,3 @@
-
 from statikk.core.domain.entities.user import User
 from statikk.core.domain.repositories.user_repository import UserRepository
 from statikk.core.domain.value_objects.user_id import UserID

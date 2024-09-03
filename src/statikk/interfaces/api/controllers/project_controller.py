@@ -1,4 +1,3 @@
-# interfaces/api/controllers/project_controller.py
 from fastapi import APIRouter, Depends, HTTPException
 from statikk.core.application.services.project_service import ProjectService
 from pydantic import BaseModel
