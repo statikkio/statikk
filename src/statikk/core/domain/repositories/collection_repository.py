@@ -27,3 +27,7 @@ class CollectionRepository(ABC):
     @abstractmethod
     def delete(self, collection_id: CollectionID) -> None:
         pass
+
+    @abstractmethod
+    def list_all(self) -> list[Collection]:
+        pass
