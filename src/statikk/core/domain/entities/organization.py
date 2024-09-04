@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Dict
-
 from statikk.core.domain.entities.role import Role
 from statikk.core.domain.value_objects.organization_id import OrganizationID
 from statikk.core.domain.value_objects.user_id import UserID
@@ -21,7 +19,7 @@ class Organization:
     :type members: Dict[UserID, Role]
     """
 
-    def __init__(self, organization_id: OrganizationID, name: str, owner_id: UserID, members: dict[str, Role] = None):
+    def __init__(self, organization_id: OrganizationID, name: str, owner_id: UserID, members: dict[str, Role] | None = None):
         self.organization_id = organization_id
         self.name = name
         self.owner_id = owner_id
@@ -58,10 +56,10 @@ class Organization:
         :param new_role: The new role for the member.
         :type new_role: Role
         """
-        if user_id in self.members:
-            self.members[user_id] = new_role
+        if user_id.id in self.members:
+            self.members[user_id.id] = new_role
 
-    def get_member_role(self, user_id: UserID) -> Role:
+    def get_member_role(self, user_id: UserID) -> Role | None:
         """
         Get the role of a member within the organization.
 

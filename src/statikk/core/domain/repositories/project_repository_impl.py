@@ -1,7 +1,4 @@
-# infrastructure/database/project_repository_impl.py
 from __future__ import annotations
-
-from typing import List
 
 from statikk.core.domain.entities.project import Project
 from statikk.core.domain.repositories.project_repository import ProjectRepository

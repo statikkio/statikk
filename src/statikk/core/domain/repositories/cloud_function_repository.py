@@ -26,4 +26,9 @@ class CloudFunctionRepository(ABC):
 
     @abstractmethod
     def delete(self, function_id: CloudFunctionID) -> None:
+
+        pass
+
+    @abstractmethod
+    def list_all(self) -> list[CloudFunction]:
         pass
