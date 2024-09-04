@@ -1,27 +1,36 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from statikk.core.application.services.organization_service import OrganizationService
+from __future__ import annotations
+
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import status
 from pydantic import BaseModel
-from typing import List, Dict
+from statikk.core.application.services.organization_service import OrganizationService
 
 # Initialize the APIRouter for organizations
 router = APIRouter()
 
 # Pydantic models for request and response bodies
+
+
 class OrganizationRequest(BaseModel):
     name: str
     owner_id: str
+
 
 class OrganizationResponse(BaseModel):
     organization_id: str
     name: str
     owner_id: str
-    members: Dict[str, str]
+    members: dict[str, str]
+
 
 class AddMemberRequest(BaseModel):
     user_id: str
     role: str
 
-@router.post("/organizations", response_model=OrganizationResponse, status_code=status.HTTP_201_CREATED)
+
+@router.post('/organizations', response_model=OrganizationResponse, status_code=status.HTTP_201_CREATED)
 async def create_organization(request: OrganizationRequest, service: OrganizationService = Depends()):
     """
     Create a new organization.
@@ -39,12 +48,13 @@ async def create_organization(request: OrganizationRequest, service: Organizatio
             organization_id=str(organization.organization_id),
             name=organization.name,
             owner_id=str(organization.owner_id),
-            members={str(k): v for k, v in organization.members.items()}
+            members={str(k): v for k, v in organization.members.items()},
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/organizations/{organization_id}", response_model=OrganizationResponse)
+
+@router.get('/organizations/{organization_id}', response_model=OrganizationResponse)
 async def get_organization(organization_id: str, service: OrganizationService = Depends()):
     """
     Retrieve an organization by its unique identifier.
@@ -63,14 +73,15 @@ async def get_organization(organization_id: str, service: OrganizationService = 
             organization_id=str(organization.organization_id),
             name=organization.name,
             owner_id=str(organization.owner_id),
-            members={str(k): v for k, v in organization.members.items()}
+            members={str(k): v for k, v in organization.members.items()},
         )
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Organization not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Organization not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.put("/organizations/{organization_id}", response_model=OrganizationResponse)
+
+@router.put('/organizations/{organization_id}', response_model=OrganizationResponse)
 async def update_organization(organization_id: str, request: OrganizationRequest, service: OrganizationService = Depends()):
     """
     Update an existing organization.
@@ -91,14 +102,15 @@ async def update_organization(organization_id: str, request: OrganizationRequest
             organization_id=str(updated_organization.organization_id),
             name=updated_organization.name,
             owner_id=str(updated_organization.owner_id),
-            members={str(k): v for k, v in updated_organization.members.items()}
+            members={str(k): v for k, v in updated_organization.members.items()},
         )
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Organization not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Organization not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.delete("/organizations/{organization_id}", status_code=status.HTTP_204_NO_CONTENT)
+
+@router.delete('/organizations/{organization_id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_organization(organization_id: str, service: OrganizationService = Depends()):
     """
     Delete an organization by its unique identifier.
@@ -112,11 +124,12 @@ async def delete_organization(organization_id: str, service: OrganizationService
     try:
         service.delete_organization(organization_id)
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Organization not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Organization not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/organizations/{organization_id}/members", response_model=OrganizationResponse)
+
+@router.post('/organizations/{organization_id}/members', response_model=OrganizationResponse)
 async def add_member(organization_id: str, request: AddMemberRequest, service: OrganizationService = Depends()):
     """
     Add a member to the organization.
@@ -136,9 +149,9 @@ async def add_member(organization_id: str, request: AddMemberRequest, service: O
             organization_id=str(organization.organization_id),
             name=organization.name,
             owner_id=str(organization.owner_id),
-            members={str(k): v for k, v in organization.members.items()}
+            members={str(k): v for k, v in organization.members.items()},
         )
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Organization not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Organization not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

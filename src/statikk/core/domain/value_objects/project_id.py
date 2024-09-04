@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import uuid
+
 
 class ProjectID:
     """
@@ -8,7 +11,7 @@ class ProjectID:
     :type id: str, optional
     """
 
-    def __init__(self, id: str = None):
+    def __init__(self, id: str | None = None):
         """
         Initializes a new ProjectID value object.
 

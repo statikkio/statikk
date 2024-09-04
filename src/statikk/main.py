@@ -14,7 +14,7 @@ from statikk.interfaces.api.controllers.user_controller import user_router
 app = FastAPI()
 
 # Initialize the database client
-db_client = SubrrealDBClient(host="localhost", port=1234, database="statikk_db")
+db_client = SubrrealDBClient(host='localhost', port=1234, database='statikk_db')
 
 
 # Include the user_router from user_controller
@@ -26,6 +26,6 @@ app = FastAPI()
 
 
 # Health check endpoint
-@app.get("/")
+@app.get('/')
 async def root():
-    return {"message": "Statikk API is running"}
+    return {'message': 'Statikk API is running'}

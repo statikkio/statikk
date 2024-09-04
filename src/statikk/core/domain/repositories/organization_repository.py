@@ -1,4 +1,8 @@
-from abc import ABC, abstractmethod
+from __future__ import annotations
+
+from abc import ABC
+from abc import abstractmethod
+
 from statikk.core.domain.entities.organization import Organization
 from statikk.core.domain.value_objects.organization_id import OrganizationID
 

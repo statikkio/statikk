@@ -1,24 +1,34 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from statikk.core.application.services.cloud_function_service import CloudFunctionService
-from pydantic import BaseModel
+from __future__ import annotations
+
 from typing import List
+
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import status
+from pydantic import BaseModel
+from statikk.core.application.services.cloud_function_service import CloudFunctionService
 
 # Initialize the APIRouter for cloud functions
 router = APIRouter()
 
 # Pydantic models for request and response bodies
+
+
 class CloudFunctionRequest(BaseModel):
     name: str
     code: str
-    triggers: List[str]
+    triggers: list[str]
+
 
 class CloudFunctionResponse(BaseModel):
     function_id: str
     name: str
     code: str
-    triggers: List[str]
+    triggers: list[str]
 
-@router.post("/cloud_functions", response_model=CloudFunctionResponse, status_code=status.HTTP_201_CREATED)
+
+@router.post('/cloud_functions', response_model=CloudFunctionResponse, status_code=status.HTTP_201_CREATED)
 async def create_cloud_function(request: CloudFunctionRequest, service: CloudFunctionService = Depends()):
     """
     Create a new cloud function.
@@ -36,12 +46,13 @@ async def create_cloud_function(request: CloudFunctionRequest, service: CloudFun
             function_id=str(cloud_function.function_id),
             name=cloud_function.name,
             code=cloud_function.code,
-            triggers=cloud_function.triggers
+            triggers=cloud_function.triggers,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/cloud_functions/{function_id}", response_model=CloudFunctionResponse)
+
+@router.get('/cloud_functions/{function_id}', response_model=CloudFunctionResponse)
 async def get_cloud_function(function_id: str, service: CloudFunctionService = Depends()):
     """
     Retrieve a cloud function by its unique identifier.
@@ -60,14 +71,15 @@ async def get_cloud_function(function_id: str, service: CloudFunctionService = D
             function_id=str(cloud_function.function_id),
             name=cloud_function.name,
             code=cloud_function.code,
-            triggers=cloud_function.triggers
+            triggers=cloud_function.triggers,
         )
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cloud function not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cloud function not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.put("/cloud_functions/{function_id}", response_model=CloudFunctionResponse)
+
+@router.put('/cloud_functions/{function_id}', response_model=CloudFunctionResponse)
 async def update_cloud_function(function_id: str, request: CloudFunctionRequest, service: CloudFunctionService = Depends()):
     """
     Update an existing cloud function.
@@ -86,20 +98,21 @@ async def update_cloud_function(function_id: str, request: CloudFunctionRequest,
         updated_cloud_function = service.update_cloud_function(
             function_id=function_id,
             new_code=request.code,
-            triggers=request.triggers
+            triggers=request.triggers,
         )
         return CloudFunctionResponse(
             function_id=str(updated_cloud_function.function_id),
             name=updated_cloud_function.name,
             code=updated_cloud_function.code,
-            triggers=updated_cloud_function.triggers
+            triggers=updated_cloud_function.triggers,
         )
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cloud function not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cloud function not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.delete("/cloud_functions/{function_id}", status_code=status.HTTP_204_NO_CONTENT)
+
+@router.delete('/cloud_functions/{function_id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_cloud_function(function_id: str, service: CloudFunctionService = Depends()):
     """
     Delete a cloud function by its unique identifier.
@@ -113,11 +126,12 @@ async def delete_cloud_function(function_id: str, service: CloudFunctionService 
     try:
         service.delete_cloud_function(function_id)
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cloud function not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Cloud function not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/cloud_functions", response_model=List[CloudFunctionResponse])
+
+@router.get('/cloud_functions', response_model=list[CloudFunctionResponse])
 async def list_cloud_functions(service: CloudFunctionService = Depends()):
     """
     List all cloud functions.
@@ -134,7 +148,7 @@ async def list_cloud_functions(service: CloudFunctionService = Depends()):
                 function_id=str(cf.function_id),
                 name=cf.name,
                 code=cf.code,
-                triggers=cf.triggers
+                triggers=cf.triggers,
             ) for cf in cloud_functions
         ]
     except Exception as e:

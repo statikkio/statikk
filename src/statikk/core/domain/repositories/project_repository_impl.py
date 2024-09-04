@@ -1,5 +1,8 @@
 # infrastructure/database/project_repository_impl.py
+from __future__ import annotations
+
 from typing import List
+
 from statikk.core.domain.entities.project import Project
 from statikk.core.domain.repositories.project_repository import ProjectRepository
 from statikk.core.domain.value_objects.project_id import ProjectID
@@ -36,7 +39,7 @@ class SubrrrealDBProjectRepository(ProjectRepository):
             return Project(
                 project_id=ProjectID(result['id']),
                 name=result['name'],
-                description=result['description']
+                description=result['description'],
             )
         except KeyError as e:
             # Specific handling if the project is not found
@@ -57,12 +60,12 @@ class SubrrrealDBProjectRepository(ProjectRepository):
         """
         try:
             self.db_client.insert(
-                collection="projects",
+                collection='projects',
                 data={
-                    "id": str(project.project_id),
-                    "name": project.name,
-                    "description": project.description
-                }
+                    'id': str(project.project_id),
+                    'name': project.name,
+                    'description': project.description,
+                },
             )
             print(f"Project {project.name} saved successfully.")
         except Exception as e:
@@ -85,12 +88,12 @@ class SubrrrealDBProjectRepository(ProjectRepository):
                 raise KeyError(f"Project with ID {project.project_id} not found for update.")
 
             self.db_client.update(
-                collection="projects",
+                collection='projects',
                 identifier=str(project.project_id),
                 data={
-                    "name": project.name,
-                    "description": project.description
-                }
+                    'name': project.name,
+                    'description': project.description,
+                },
             )
             print(f"Project {project.name} updated successfully.")
         except KeyError as e:
@@ -118,8 +121,8 @@ class SubrrrealDBProjectRepository(ProjectRepository):
                 raise KeyError(f"Project with ID {project_id} not found for deletion.")
 
             self.db_client.delete(
-                collection="projects",
-                identifier=str(project_id)
+                collection='projects',
+                identifier=str(project_id),
             )
             print(f"Project with ID {project_id} deleted successfully.")
         except KeyError as e:

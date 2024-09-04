@@ -1,4 +1,8 @@
-from abc import ABC, abstractmethod
+from __future__ import annotations
+
+from abc import ABC
+from abc import abstractmethod
+
 from statikk.core.domain.entities.cloud_function import CloudFunction
 from statikk.core.domain.value_objects.cloud_function_id import CloudFunctionID
 

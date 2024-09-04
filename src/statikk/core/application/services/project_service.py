@@ -1,7 +1,11 @@
+from __future__ import annotations
+
 from typing import List
+
 from statikk.core.domain.entities.project import Project
 from statikk.core.domain.repositories.project_repository import ProjectRepository
 from statikk.core.domain.value_objects.project_id import ProjectID
+
 
 class ProjectService:
     """
@@ -26,7 +30,7 @@ class ProjectService:
         self.project_repository.save(project)
         return project
 
-    def list_all_projects(self) -> List[Project]:
+    def list_all_projects(self) -> list[Project]:
         """
         Retrieve all projects.
 

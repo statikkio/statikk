@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from statikk.core.domain.value_objects import ProjectID
+
 
 class Project:
     """
@@ -12,7 +15,7 @@ class Project:
     :type description: str
     """
 
-    def __init__(self, project_id: ProjectID, name: str, description: str = ""):
+    def __init__(self, project_id: ProjectID, name: str, description: str = ''):
         self.project_id = project_id
         self.name = name
         self.description = description
