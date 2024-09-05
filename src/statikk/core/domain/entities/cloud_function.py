@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from statikk.core.domain.value_objects import CloudFunctionID
 
 

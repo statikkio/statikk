@@ -1,8 +1,11 @@
 # infrastructure/database/collection_repository_impl.py
+from __future__ import annotations
+
 from statikk.core.domain.entities.collection import Collection
 from statikk.core.domain.repositories.collection_repository import CollectionRepository
 from statikk.core.domain.value_objects.collection_id import CollectionID
 from statikk.infrastructure.databases.subrreal_db_client import SubrrealDBClient
+
 
 class SubrrealDBCollectionRepository(CollectionRepository):
     """
@@ -33,7 +36,7 @@ class SubrrealDBCollectionRepository(CollectionRepository):
             return Collection(
                 collection_id=CollectionID(result['id']),
                 name=result['name'],
-                schema=result['schema']
+                schema=result['schema'],
             )
         except KeyError as e:
             print(f"Error: {str(e)}")
@@ -51,12 +54,12 @@ class SubrrealDBCollectionRepository(CollectionRepository):
         """
         try:
             self.db_client.insert(
-                collection="collections",
+                collection='collections',
                 data={
-                    "id": str(collection.collection_id),
-                    "name": collection.name,
-                    "schema": collection.schema
-                }
+                    'id': str(collection.collection_id),
+                    'name': collection.name,
+                    'schema': collection.schema,
+                },
             )
             print(f"Collection {collection.name} saved successfully.")
         except Exception as e:
@@ -76,12 +79,12 @@ class SubrrealDBCollectionRepository(CollectionRepository):
                 raise KeyError(f"Collection with ID {collection.collection_id} not found for update.")
 
             self.db_client.update(
-                collection="collections",
+                collection='collections',
                 identifier=str(collection.collection_id),
                 data={
-                    "name": collection.name,
-                    "schema": collection.schema
-                }
+                    'name': collection.name,
+                    'schema': collection.schema,
+                },
             )
             print(f"Collection {collection.name} updated successfully.")
         except KeyError as e:
@@ -104,8 +107,8 @@ class SubrrealDBCollectionRepository(CollectionRepository):
                 raise KeyError(f"Collection with ID {collection_id} not found for deletion.")
 
             self.db_client.delete(
-                collection="collections",
-                identifier=str(collection_id)
+                collection='collections',
+                identifier=str(collection_id),
             )
             print(f"Collection with ID {collection_id} deleted successfully.")
         except KeyError as e:

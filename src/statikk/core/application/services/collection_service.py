@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 from statikk.core.domain.entities.collection import Collection
 from statikk.core.domain.repositories.collection_repository import CollectionRepository
 from statikk.core.domain.value_objects.collection_id import CollectionID
-from typing import List
+
 
 class CollectionService:
     """
@@ -28,7 +30,7 @@ class CollectionService:
         collection = Collection(
             collection_id=CollectionID(),
             name=name,
-            schema=schema
+            schema=schema,
         )
         self.collection_repository.save(collection)
         return collection
@@ -74,7 +76,7 @@ class CollectionService:
         """
         self.collection_repository.delete(CollectionID(collection_id))
 
-    def list_all_collections(self) -> List[Collection]:
+    def list_all_collections(self) -> list[Collection]:
         """
         List all collections.
 

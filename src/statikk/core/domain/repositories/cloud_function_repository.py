@@ -1,4 +1,8 @@
-from abc import ABC, abstractmethod
+from __future__ import annotations
+
+from abc import ABC
+from abc import abstractmethod
+
 from statikk.core.domain.entities.cloud_function import CloudFunction
 from statikk.core.domain.value_objects.cloud_function_id import CloudFunctionID
 
@@ -22,4 +26,9 @@ class CloudFunctionRepository(ABC):
 
     @abstractmethod
     def delete(self, function_id: CloudFunctionID) -> None:
+
+        pass
+
+    @abstractmethod
+    def list_all(self) -> list[CloudFunction]:
         pass

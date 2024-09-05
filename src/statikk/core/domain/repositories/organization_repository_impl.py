@@ -1,9 +1,12 @@
 # infrastructure/database/organization_repository_impl.py
+from __future__ import annotations
+
 from statikk.core.domain.entities.organization import Organization
 from statikk.core.domain.repositories.organization_repository import OrganizationRepository
 from statikk.core.domain.value_objects.organization_id import OrganizationID
 from statikk.core.domain.value_objects.user_id import UserID
 from statikk.infrastructure.databases.subrreal_db_client import SubrrealDBClient
+
 
 class SubrrrealDBOrganizationRepository(OrganizationRepository):
     """
@@ -35,7 +38,7 @@ class SubrrrealDBOrganizationRepository(OrganizationRepository):
                 organization_id=OrganizationID(result['id']),
                 name=result['name'],
                 owner_id=UserID(result['owner_id']),
-                members={UserID(k): v for k, v in result['members'].items()}
+                members={UserID(k): v for k, v in result['members'].items()},
             )
         except KeyError as e:
             print(f"Error: {str(e)}")
@@ -53,13 +56,13 @@ class SubrrrealDBOrganizationRepository(OrganizationRepository):
         """
         try:
             self.db_client.insert(
-                collection="organizations",
+                collection='organizations',
                 data={
-                    "id": str(organization.organization_id),
-                    "name": organization.name,
-                    "owner_id": str(organization.owner_id),
-                    "members": {str(k): v for k, v in organization.members.items()}
-                }
+                    'id': str(organization.organization_id),
+                    'name': organization.name,
+                    'owner_id': str(organization.owner_id),
+                    'members': {str(k): v for k, v in organization.members.items()},
+                },
             )
             print(f"Organization {organization.name} saved successfully.")
         except Exception as e:
@@ -79,13 +82,13 @@ class SubrrrealDBOrganizationRepository(OrganizationRepository):
                 raise KeyError(f"Organization with ID {organization.organization_id} not found for update.")
 
             self.db_client.update(
-                collection="organizations",
+                collection='organizations',
                 identifier=str(organization.organization_id),
                 data={
-                    "name": organization.name,
-                    "owner_id": str(organization.owner_id),
-                    "members": {str(k): v for k, v in organization.members.items()}
-                }
+                    'name': organization.name,
+                    'owner_id': str(organization.owner_id),
+                    'members': {str(k): v for k, v in organization.members.items()},
+                },
             )
             print(f"Organization {organization.name} updated successfully.")
         except KeyError as e:
@@ -108,8 +111,8 @@ class SubrrrealDBOrganizationRepository(OrganizationRepository):
                 raise KeyError(f"Organization with ID {organization_id} not found for deletion.")
 
             self.db_client.delete(
-                collection="organizations",
-                identifier=str(organization_id)
+                collection='organizations',
+                identifier=str(organization_id),
             )
             print(f"Organization with ID {organization_id} deleted successfully.")
         except KeyError as e:

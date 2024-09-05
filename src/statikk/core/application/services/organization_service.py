@@ -1,11 +1,12 @@
+from __future__ import annotations
+
 from statikk.core.domain.entities.organization import Organization
 from statikk.core.domain.entities.role import Role
-from statikk.core.domain.value_objects.permissions import Permission
 from statikk.core.domain.repositories.organization_repository import OrganizationRepository
 from statikk.core.domain.value_objects.organization_id import OrganizationID
+from statikk.core.domain.value_objects.permissions import Permission
 from statikk.core.domain.value_objects.user_id import UserID
-from statikk.core.domain.value_objects.role_id import RoleID
-from typing import Dict, List
+
 
 class OrganizationService:
     """
@@ -32,7 +33,7 @@ class OrganizationService:
         organization = Organization(
             organization_id=OrganizationID(),
             name=name,
-            owner_id=UserID(owner_id)
+            owner_id=UserID(owner_id),
         )
         self.organization_repository.save(organization)
         return organization
@@ -65,8 +66,8 @@ class OrganizationService:
         :raises PermissionError: If the requesting user does not have permission to update the organization.
         """
         organization = self.get_organization(organization_id)
-        if not self.check_permission(organization_id, requesting_user_id, Permission("update_organization")):
-            raise PermissionError("User does not have permission to update the organization.")
+        if not self.check_permission(organization_id, requesting_user_id, Permission('update_organization')):
+            raise PermissionError('User does not have permission to update the organization.')
 
         organization.name = name
         self.organization_repository.update(organization)
@@ -83,8 +84,8 @@ class OrganizationService:
         :raises KeyError: If the organization does not exist.
         :raises PermissionError: If the requesting user does not have permission to delete the organization.
         """
-        if not self.check_permission(organization_id, requesting_user_id, Permission("delete_organization")):
-            raise PermissionError("User does not have permission to delete the organization.")
+        if not self.check_permission(organization_id, requesting_user_id, Permission('delete_organization')):
+            raise PermissionError('User does not have permission to delete the organization.')
         self.organization_repository.delete(OrganizationID(organization_id))
 
     def add_member(self, organization_id: str, user_id: str, role: Role, requesting_user_id: str) -> Organization:
@@ -104,8 +105,8 @@ class OrganizationService:
         :raises PermissionError: If the requesting user does not have permission to add members.
         """
         organization = self.get_organization(organization_id)
-        if not self.check_permission(organization_id, requesting_user_id, Permission("add_member")):
-            raise PermissionError("User does not have permission to add members to the organization.")
+        if not self.check_permission(organization_id, requesting_user_id, Permission('add_member')):
+            raise PermissionError('User does not have permission to add members to the organization.')
 
         organization.add_member(UserID(user_id), role)
         self.organization_repository.update(organization)
@@ -126,8 +127,8 @@ class OrganizationService:
         :raises PermissionError: If the requesting user does not have permission to remove members.
         """
         organization = self.get_organization(organization_id)
-        if not self.check_permission(organization_id, requesting_user_id, Permission("remove_member")):
-            raise PermissionError("User does not have permission to remove members from the organization.")
+        if not self.check_permission(organization_id, requesting_user_id, Permission('remove_member')):
+            raise PermissionError('User does not have permission to remove members from the organization.')
 
         organization.remove_member(UserID(user_id))
         self.organization_repository.update(organization)
@@ -150,8 +151,8 @@ class OrganizationService:
         :raises PermissionError: If the requesting user does not have permission to update member roles.
         """
         organization = self.get_organization(organization_id)
-        if not self.check_permission(organization_id, requesting_user_id, Permission("update_member_role")):
-            raise PermissionError("User does not have permission to update member roles.")
+        if not self.check_permission(organization_id, requesting_user_id, Permission('update_member_role')):
+            raise PermissionError('User does not have permission to update member roles.')
 
         organization.update_member_role(UserID(user_id), new_role)
         self.organization_repository.update(organization)

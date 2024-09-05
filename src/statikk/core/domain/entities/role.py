@@ -1,6 +1,10 @@
-from statikk.core.domain.value_objects.role_id import RoleID
-from statikk.core.domain.value_objects.permissions import Permission
+from __future__ import annotations
+
 from typing import List
+
+from statikk.core.domain.value_objects.permissions import Permission
+from statikk.core.domain.value_objects.role_id import RoleID
+
 
 class Role:
     """
@@ -14,7 +18,7 @@ class Role:
     :type permissions: List[Permission]
     """
 
-    def __init__(self, role_id: RoleID, name: str, permissions: List[Permission]):
+    def __init__(self, role_id: RoleID, name: str, permissions: list[Permission]):
         self.role_id = role_id
         self.name = name
         self.permissions = permissions

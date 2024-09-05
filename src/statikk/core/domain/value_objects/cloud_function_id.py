@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import uuid
 
 
@@ -9,7 +11,7 @@ class CloudFunctionID:
     :type id: str, optional
     """
 
-    def __init__(self, id: str = None):
+    def __init__(self, id: str | None = None):
         self.id = id or str(uuid.uuid4())
 
     def __eq__(self, other):

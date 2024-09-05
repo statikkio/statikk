@@ -1,7 +1,12 @@
-from abc import ABC, abstractmethod
+from __future__ import annotations
+
+from abc import ABC
+from abc import abstractmethod
 from typing import List
+
 from statikk.core.domain.entities.project import Project
 from statikk.core.domain.value_objects.project_id import ProjectID
+
 
 class ProjectRepository(ABC):
     """
@@ -52,7 +57,7 @@ class ProjectRepository(ABC):
         pass
 
     @abstractmethod
-    def list_all(self) -> List[Project]:
+    def list_all(self) -> list[Project]:
         """
         Retrieve a list of all projects.
 

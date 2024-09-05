@@ -1,6 +1,11 @@
-from abc import ABC, abstractmethod
+from __future__ import annotations
+
+from abc import ABC
+from abc import abstractmethod
+
 from statikk.core.domain.entities.role import Role
 from statikk.core.domain.value_objects.role_id import RoleID
+
 
 class RoleRepository(ABC):
     """

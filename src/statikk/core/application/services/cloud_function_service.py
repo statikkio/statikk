@@ -1,8 +1,10 @@
 # core/application/services/cloud_function_service.py
+from __future__ import annotations
+
 from statikk.core.domain.entities.cloud_function import CloudFunction
 from statikk.core.domain.repositories.cloud_function_repository import CloudFunctionRepository
 from statikk.core.domain.value_objects.cloud_function_id import CloudFunctionID
-from typing import List
+
 
 class CloudFunctionService:
     """
@@ -15,7 +17,7 @@ class CloudFunctionService:
     def __init__(self, cloud_function_repository: CloudFunctionRepository):
         self.cloud_function_repository = cloud_function_repository
 
-    def create_cloud_function(self, name: str, code: str, triggers: List[str]) -> CloudFunction:
+    def create_cloud_function(self, name: str, code: str, triggers: list[str]) -> CloudFunction:
         """
         Create a new cloud function.
 
@@ -29,7 +31,7 @@ class CloudFunctionService:
             function_id=CloudFunctionID(),
             name=name,
             code=code,
-            triggers=triggers
+            triggers=triggers,
         )
         self.cloud_function_repository.save(cloud_function)
         return cloud_function
@@ -46,7 +48,7 @@ class CloudFunctionService:
         """
         return self.cloud_function_repository.get_by_id(CloudFunctionID(function_id))
 
-    def update_cloud_function(self, function_id: str, new_code: str, triggers: List[str]) -> CloudFunction:
+    def update_cloud_function(self, function_id: str, new_code: str, triggers: list[str]) -> CloudFunction:
         """
         Update an existing cloud function.
 
@@ -73,7 +75,7 @@ class CloudFunctionService:
         """
         self.cloud_function_repository.delete(CloudFunctionID(function_id))
 
-    def list_all_cloud_functions(self) -> List[CloudFunction]:
+    def list_all_cloud_functions(self) -> list[CloudFunction]:
         """
         List all cloud functions.
 

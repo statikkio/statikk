@@ -1,8 +1,11 @@
 # infrastructure/database/user_repository_impl.py
+from __future__ import annotations
+
 from statikk.core.domain.entities.user import User
 from statikk.core.domain.repositories.user_repository import UserRepository
 from statikk.core.domain.value_objects.user_id import UserID
 from statikk.infrastructure.databases.subrreal_db_client import SubrrealDBClient
+
 
 class SubrrealDBUserRepository(UserRepository):
     """
@@ -33,7 +36,7 @@ class SubrrealDBUserRepository(UserRepository):
             return User(
                 user_id=UserID(result['id']),
                 username=result['username'],
-                email=result['email']
+                email=result['email'],
             )
         except Exception as e:
             raise KeyError(f"Failed to retrieve user: {str(e)}")
@@ -47,12 +50,12 @@ class SubrrealDBUserRepository(UserRepository):
         """
         try:
             self.db_client.insert(
-                collection="users",
+                collection='users',
                 data={
-                    "id": str(user.user_id),
-                    "username": user.username,
-                    "email": user.email
-                }
+                    'id': str(user.user_id),
+                    'username': user.username,
+                    'email': user.email,
+                },
             )
             print(f"User {user.username} saved successfully.")
         except Exception as e:
@@ -67,12 +70,12 @@ class SubrrealDBUserRepository(UserRepository):
         """
         try:
             self.db_client.update(
-                collection="users",
+                collection='users',
                 identifier=str(user.user_id),
                 data={
-                    "username": user.username,
-                    "email": user.email
-                }
+                    'username': user.username,
+                    'email': user.email,
+                },
             )
             print(f"User {user.username} updated successfully.")
         except Exception as e:
@@ -87,8 +90,8 @@ class SubrrealDBUserRepository(UserRepository):
         """
         try:
             self.db_client.delete(
-                collection="users",
-                identifier=str(user_id)
+                collection='users',
+                identifier=str(user_id),
             )
             print(f"User with ID {user_id} deleted successfully.")
         except Exception as e:

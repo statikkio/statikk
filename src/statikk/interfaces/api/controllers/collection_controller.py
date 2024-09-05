@@ -1,22 +1,33 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from statikk.core.application.services.collection_service import CollectionService
+from __future__ import annotations
+
+from typing import Dict
+from typing import List
+
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import status
 from pydantic import BaseModel
-from typing import List, Dict
+from statikk.core.application.services.collection_service import CollectionService
 
 # Initialize the APIRouter for collections
 router = APIRouter()
 
 # Pydantic models for request and response bodies
+
+
 class CollectionRequest(BaseModel):
     name: str
-    schema: Dict[str, str]
+    schema: dict[str, str]
+
 
 class CollectionResponse(BaseModel):
     collection_id: str
     name: str
-    schema: Dict[str, str]
+    schema: dict[str, str]
 
-@router.post("/collections", response_model=CollectionResponse, status_code=status.HTTP_201_CREATED)
+
+@router.post('/collections', response_model=CollectionResponse, status_code=status.HTTP_201_CREATED)
 async def create_collection(request: CollectionRequest, service: CollectionService = Depends()):
     """
     Create a new collection.
@@ -33,12 +44,13 @@ async def create_collection(request: CollectionRequest, service: CollectionServi
         return CollectionResponse(
             collection_id=str(collection.collection_id),
             name=collection.name,
-            schema=collection.schema
+            schema=collection.schema,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/collections/{collection_id}", response_model=CollectionResponse)
+
+@router.get('/collections/{collection_id}', response_model=CollectionResponse)
 async def get_collection(collection_id: str, service: CollectionService = Depends()):
     """
     Retrieve a collection by its unique identifier.
@@ -56,14 +68,15 @@ async def get_collection(collection_id: str, service: CollectionService = Depend
         return CollectionResponse(
             collection_id=str(collection.collection_id),
             name=collection.name,
-            schema=collection.schema
+            schema=collection.schema,
         )
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Collection not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.put("/collections/{collection_id}", response_model=CollectionResponse)
+
+@router.put('/collections/{collection_id}', response_model=CollectionResponse)
 async def update_collection(collection_id: str, request: CollectionRequest, service: CollectionService = Depends()):
     """
     Update an existing collection.
@@ -83,14 +96,15 @@ async def update_collection(collection_id: str, request: CollectionRequest, serv
         return CollectionResponse(
             collection_id=str(updated_collection.collection_id),
             name=updated_collection.name,
-            schema=updated_collection.schema
+            schema=updated_collection.schema,
         )
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Collection not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.delete("/collections/{collection_id}", status_code=status.HTTP_204_NO_CONTENT)
+
+@router.delete('/collections/{collection_id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_collection(collection_id: str, service: CollectionService = Depends()):
     """
     Delete a collection by its unique identifier.
@@ -104,11 +118,12 @@ async def delete_collection(collection_id: str, service: CollectionService = Dep
     try:
         service.delete_collection(collection_id)
     except KeyError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Collection not found')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/collections", response_model=List[CollectionResponse])
+
+@router.get('/collections', response_model=list[CollectionResponse])
 async def list_collections(service: CollectionService = Depends()):
     """
     List all collections.
@@ -124,7 +139,7 @@ async def list_collections(service: CollectionService = Depends()):
             CollectionResponse(
                 collection_id=str(c.collection_id),
                 name=c.name,
-                schema=c.schema
+                schema=c.schema,
             ) for c in collections
         ]
     except Exception as e:

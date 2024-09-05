@@ -1,6 +1,11 @@
-from abc import ABC, abstractmethod
+from __future__ import annotations
+
+from abc import ABC
+from abc import abstractmethod
+
 from statikk.core.domain.entities.collection import Collection
 from statikk.core.domain.value_objects.collection_id import CollectionID
+
 
 class CollectionRepository(ABC):
     """
@@ -21,4 +26,8 @@ class CollectionRepository(ABC):
 
     @abstractmethod
     def delete(self, collection_id: CollectionID) -> None:
+        pass
+
+    @abstractmethod
+    def list_all(self) -> list[Collection]:
         pass
