@@ -1,4 +1,3 @@
-# interfaces/api/controllers/project_config_controller.py
 from __future__ import annotations
 
 from fastapi import APIRouter
