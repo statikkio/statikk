@@ -8,36 +8,6 @@
 - **Authentication**: Secure user authentication with JWT or OAuth.
 - **Cloud Functions**: Run custom backend logic.
 
-### Project Structure
-
-```plaintext
-statikk/
-│
-├── domain/                   # Domain layer: business logic
-│   ├── entities/             # Core domain entities
-│   ├── value_objects/        # Immutable value objects
-│   ├── services/             # Domain services
-│   └── repositories/         # Repository interfaces
-│
-├── application/              # Application layer: use cases and interfaces
-│   ├── use_cases/            # Use case implementations
-│   └── interfaces/           # Application interfaces
-│
-├── infrastructure/           # Infrastructure layer: database, API, etc.
-│   ├── persistence/          # Database adapters (e.g., SurrealDB)
-│   └── web/                  # Web/API server
-│       ├── routes/           # API route definitions
-│       └── fastapi_app.py    # Main API application
-│
-├── tests/                    # Tests
-│   ├── unit/                 # Unit tests
-│   ├── integration/          # Integration tests
-│   └── e2e/                  # End-to-end tests
-│
-├── .gitignore                # Git ignore file
-├── README.md                 # Project documentation
-└── requirements.txt          # Python dependencies
-```
 
 ### Contributing
 
