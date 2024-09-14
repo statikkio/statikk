@@ -11,6 +11,14 @@
 - **Authentication**: Secure user authentication with JWT or OAuth.
 - **Cloud Functions**: Run custom backend logic.
 
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Recent activity [![Time period](https://images.repography.com/54868595/Adi3g/statikk/recent-activity/hXC7IGmof19iI55Fv_l4wx3CW3RDd7Uq4ggk4pT6Zjo/lZGhsEU0_b3Ulk3FAM8YbOPKDtNRN6H2Nn_RFYqgezs_badge.svg)](https://repography.com)
+[![Timeline graph](https://images.repography.com/54868595/Adi3g/statikk/recent-activity/hXC7IGmof19iI55Fv_l4wx3CW3RDd7Uq4ggk4pT6Zjo/lZGhsEU0_b3Ulk3FAM8YbOPKDtNRN6H2Nn_RFYqgezs_timeline.svg)](https://github.com/Adi3g/statikk/commits)
+[![Issue status graph](https://images.repography.com/54868595/Adi3g/statikk/recent-activity/hXC7IGmof19iI55Fv_l4wx3CW3RDd7Uq4ggk4pT6Zjo/lZGhsEU0_b3Ulk3FAM8YbOPKDtNRN6H2Nn_RFYqgezs_issues.svg)](https://github.com/Adi3g/statikk/issues)
+[![Pull request status graph](https://images.repography.com/54868595/Adi3g/statikk/recent-activity/hXC7IGmof19iI55Fv_l4wx3CW3RDd7Uq4ggk4pT6Zjo/lZGhsEU0_b3Ulk3FAM8YbOPKDtNRN6H2Nn_RFYqgezs_prs.svg)](https://github.com/Adi3g/statikk/pulls)
+[![Trending topics](https://images.repography.com/54868595/Adi3g/statikk/recent-activity/hXC7IGmof19iI55Fv_l4wx3CW3RDd7Uq4ggk4pT6Zjo/lZGhsEU0_b3Ulk3FAM8YbOPKDtNRN6H2Nn_RFYqgezs_words.svg)](https://github.com/Adi3g/statikk/commits)
+[![Top contributors](https://images.repography.com/54868595/Adi3g/statikk/recent-activity/hXC7IGmof19iI55Fv_l4wx3CW3RDd7Uq4ggk4pT6Zjo/lZGhsEU0_b3Ulk3FAM8YbOPKDtNRN6H2Nn_RFYqgezs_users.svg)](https://github.com/Adi3g/statikk/graphs/contributors)
+[![Activity map](https://images.repography.com/54868595/Adi3g/statikk/recent-activity/hXC7IGmof19iI55Fv_l4wx3CW3RDd7Uq4ggk4pT6Zjo/lZGhsEU0_b3Ulk3FAM8YbOPKDtNRN6H2Nn_RFYqgezs_map.svg)](https://github.com/Adi3g/statikk/commits)
+
 
 ### Contributing
 
