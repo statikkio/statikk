@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://nestjs.com/" target="blank"><img src="https://github.com/user-attachments/assets/6ec51182-e3a5-4dec-b893-f01ef2f28d92" width="150" alt="Statikk Logo" /></a>
+  <a href="https://statikk.com/" target="blank"><img src="https://github.com/user-attachments/assets/6ec51182-e3a5-4dec-b893-f01ef2f28d92" width="150" alt="Statikk Logo" /></a>
 </p>
 
 
